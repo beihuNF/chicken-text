@@ -1,1 +1,1409 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"><title>测测你是什么鸡</title><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐣</text></svg>"><script src="https://cdn.tailwindcss.com"></script><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><script>tailwind.config={theme:{extend:{colors:{primary:'#FCD34D',primaryDark:'#F59E0B',secondary:'#FFFBEB',accent:'#EF4444',gold:'#FFD700',purple:'#A855F7'},fontFamily:{sans:['Arial Rounded MT Bold','Avenir','Helvetica','Arial','sans-serif']},animation:{'bounce-slow':'bounce 2s infinite','wiggle':'wiggle 1s ease-in-out infinite','pulse-slow':'pulse 3s infinite','shake':'shake 0.5s cubic-bezier(.36,.07,.19,.97) both','egg-shake':'egg-shake 0.5s cubic-bezier(.36,.07,.19,.97) both','float-up':'floatUp 10s linear infinite','pulse-glow':'pulseGlow 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite','spin-rays':'spin 10s linear infinite'},keyframes:{wiggle:{'0%, 100%':{transform:'rotate(-3deg)'},'50%':{transform:'rotate(3deg)'}},shake:{'10%, 90%':{transform:'translate3d(-1px, 0, 0)'},'20%, 80%':{transform:'translate3d(2px, 0, 0)'},'30%, 50%, 70%':{transform:'translate3d(-4px, 0, 0)'},'40%, 60%':{transform:'translate3d(4px, 0, 0)'}},'egg-shake':{'0%':{transform:'rotate(0deg)'},'25%':{transform:'rotate(-5deg)'},'50%':{transform:'rotate(5deg)'},'75%':{transform:'rotate(-5deg)'},'100%':{transform:'rotate(0deg)'}},floatUp:{'0%':{transform:'translateY(100vh) rotate(0deg)',opacity:0},'10%':{opacity:0.6},'90%':{opacity:0.6},'100%':{transform:'translateY(-20vh) rotate(360deg)',opacity:0}},pulseGlow:{'0%, 100%':{opacity:0.5,transform:'scale(1)'},'50%':{opacity:0.8,transform:'scale(1.1)'}},spin:{'0%':{transform:'rotate(0deg)'},'100%':{transform:'rotate(360deg)'}}}}}}</script><style type="text/tailwindcss">@layer utilities{.text-shadow{text-shadow:0 2px 4px rgba(0,0,0,0.1)}.text-shadow-lg{text-shadow:0 4px 8px rgba(0,0,0,0.12),0 2px 4px rgba(0,0,0,0.08)}}body{touch-action:none;user-select:none;-webkit-touch-callout:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;overflow:hidden}.egg-svg{transition:transform 0.1s;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.1));position:relative;z-index:10}.egg-crack{fill:none;stroke:#D97706;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity 0.2s,stroke 0.3s,filter 0.3s}.crack-glow-gold{stroke:#FFD700!important;filter:drop-shadow(0 0 2px #FFD700) drop-shadow(0 0 5px #F59E0B)}.crack-glow-purple{stroke:#A855F7!important;filter:drop-shadow(0 0 2px #A855F7) drop-shadow(0 0 5px #9333EA)}.rays-container{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:300px;height:300px;z-index:0;opacity:0;transition:opacity 0.5s;pointer-events:none}.rays{width:100%;height:100%;background:conic-gradient(from 0deg,transparent 0deg,var(--ray-color) 20deg,transparent 40deg,var(--ray-color) 60deg,transparent 80deg,var(--ray-color) 100deg,transparent 120deg,var(--ray-color) 140deg,transparent 160deg,var(--ray-color) 180deg,transparent 200deg,var(--ray-color) 220deg,transparent 240deg,var(--ray-color) 260deg,transparent 280deg,var(--ray-color) 300deg,transparent 320deg,var(--ray-color) 340deg,transparent 360deg);animation:spin-rays 10s linear infinite;mask-image:radial-gradient(circle,transparent 30%,black 70%);-webkit-mask-image:radial-gradient(circle,transparent 30%,black 70%)}.charge-aura{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:180px;height:220px;background:radial-gradient(circle,rgba(252,211,77,0.6) 0%,rgba(252,211,77,0) 70%);border-radius:50%;z-index:5;opacity:0;transition:opacity 0.3s}.charging .charge-aura{opacity:1;animation:pulseGlow 1s infinite alternate}.fallback-emoji{font-size:8rem;line-height:1;width:12rem;height:12rem;filter:drop-shadow(0 4px 6px rgba(0,0,0,0.1))}.rare-bg{background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 50%,#fcd34d 100%);border-color:#fbbf24}.special-bg{background:linear-gradient(135deg,#f3e8ff 0%,#e9d5ff 50%,#d8b4fe 100%);border-color:#c084fc}.collection-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.75rem}.collection-item{aspect-ratio:1;border-radius:0.75rem;display:flex;align-items:center;justify-content:center;font-size:2.5rem;background-color:#F3F4F6;border:2px solid #E5E7EB;transition:all 0.2s;position:relative;overflow:hidden;cursor:pointer}.collection-item.locked{filter:grayscale(100%);opacity:0.6;cursor:default}.collection-item.unlocked-normal{background-color:#FEF3C7;border-color:#FCD34D;box-shadow:0 2px 4px rgba(252,211,77,0.2)}@keyframes glow-gold{0%,100%{border-color:#F59E0B;box-shadow:0 0 5px #F59E0B,inset 0 0 5px rgba(245,158,11,0.2)}50%{border-color:#FCD34D;box-shadow:0 0 15px #FCD34D,inset 0 0 15px rgba(252,211,77,0.5)}}@keyframes glow-purple{0%,100%{border-color:#9333EA;box-shadow:0 0 5px #9333EA,inset 0 0 5px rgba(147,51,234,0.2)}50%{border-color:#C084FC;box-shadow:0 0 15px #C084FC,inset 0 0 15px rgba(192,132,252,0.5)}}.collection-item.unlocked-hidden{background:linear-gradient(135deg,#FEF9C3 0%,#FCD34D 100%);animation:glow-gold 2s infinite ease-in-out;border-width:2px;z-index:1}.collection-item.unlocked-special{background:linear-gradient(135deg,#F3E8FF 0%,#D8B4FE 100%);animation:glow-purple 2s infinite ease-in-out;border-width:2px;z-index:1}.collection-item.selected{transform:scale(1.05);border-width:3px}.floating-bg{position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;z-index:-1;pointer-events:none}.float-item{position:absolute;bottom:-10%;opacity:0;animation:floatUp 15s linear infinite}.modal-enter{opacity:0;transform:scale(0.95)}.modal-enter-active{opacity:1;transform:scale(1);transition:opacity 0.3s,transform 0.3s}.modal-exit{opacity:1;transform:scale(1)}.modal-exit-active{opacity:0;transform:scale(0.95);transition:opacity 0.3s,transform 0.3s}</style></head><body class="bg-secondary min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden"><div id="floating-bg" class="floating-bg"></div><div id="preload-cache" style="position:absolute;width:0;height:0;overflow:hidden;opacity:0;z-index:-1"></div><div id="toast" class="fixed top-6 left-1/2 transform -translate-x-1/2 bg-white border-2 border-yellow-200 px-6 py-3 rounded-full shadow-xl z-[60] flex items-center gap-3 transition-all duration-300 opacity-0 translate-y-[-20px] pointer-events-none"><span class="text-2xl animate-bounce">🐤</span><span id="toast-message" class="text-gray-700 font-bold text-sm md:text-base whitespace-nowrap"></span></div><div class="absolute top-4 left-4 z-20"><button id="btn-collection" class="bg-white p-2 rounded-full shadow-md text-xl hover:scale-110 transition-transform relative">📖<span id="collection-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center hidden">!</span></button></div><div class="absolute top-4 right-4 z-20"><button id="btn-mute" class="bg-white p-2 rounded-full shadow-md text-xl hover:scale-110 transition-transform">🔊</button></div><div class="container max-w-md mx-auto text-center z-10"><h1 class="text-4xl md:text-5xl font-bold mb-6 text-primaryDark text-shadow-lg select-none">测测你是什么鸡 <span class="text-accent">🐣</span></h1><div id="main-card" class="bg-white rounded-3xl shadow-lg p-6 mb-8 transform transition-all duration-300 hover:shadow-xl border-4 border-yellow-100 relative overflow-hidden"><div id="test-area" class="mb-2"><div class="progress-container mx-auto cursor-pointer active:scale-95 transition-transform duration-100 relative w-[200px] h-[200px] flex items-center justify-center"><div id="egg-rays" class="rays-container"><div class="rays"></div></div><div class="charge-aura"></div><svg class="egg-svg w-full h-full" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg"><path d="M100 10 C 50 10, 10 90, 10 150 C 10 210, 50 240, 100 240 C 150 240, 190 210, 190 150 C 190 90, 150 10, 100 10 Z" fill="#FEF3C7" stroke="#F59E0B" stroke-width="3"/><path id="crack-1" class="egg-crack" d="M100 10 L 90 40 L 110 60"/><path id="crack-2" class="egg-crack" d="M100 10 L 90 40 L 110 60 L 80 90 L 100 120"/><path id="crack-3" class="egg-crack" d="M100 10 L 90 40 L 110 60 L 80 90 L 100 120 L 120 150 L 90 180"/></svg><div id="press-hint" class="press-hint absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"><div class="text-5xl mb-2 animate-bounce">🥚</div><p class="text-lg text-gray-500 font-medium whitespace-nowrap">长按孵化</p></div></div><div class="w-full bg-gray-200 rounded-full h-2.5 mt-6 mb-2 overflow-hidden"><div id="progress-bar" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div></div><p id="instruction" class="text-gray-500 font-medium h-6 transition-opacity duration-300">准备好迎接你的鸡了吗？</p></div><div id="result-area" class="hidden w-full"><div id="capture-target" class="p-4 bg-white rounded-3xl w-full mx-auto shadow-sm"><div id="result-card-inner" class="bg-yellow-50 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[20rem] border-4 border-yellow-100 transition-colors duration-500 relative w-full"><div id="rare-tag" class="hidden absolute top-3 right-3 px-3 py-1 text-white text-xs font-bold rounded-full shadow-sm z-10"></div><div id="result-visual" class="mb-4 relative z-0"><img id="result-image" class="w-40 h-40 md:w-48 md:h-48 object-contain hidden filter drop-shadow-md" src="" alt="结果图片" crossorigin="anonymous"><div id="result-emoji-display" class="fallback-emoji hidden flex items-center justify-center"></div></div><h2 id="result-title" class="text-2xl md:text-3xl font-bold text-gray-800 mb-2"></h2><p id="result-description" class="text-gray-600 text-base md:text-lg px-2 leading-relaxed"></p><div class="mt-4 pt-3 border-t border-black/5 w-full"><p id="random-quote" class="text-xs text-gray-400 italic font-medium"></p></div><p class="text-[10px] text-gray-300 mt-2">测测你是什么鸡</p></div></div><div class="flex flex-col gap-3 mt-6"><div class="flex gap-3 justify-center"><button id="btn-share" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-2xl font-bold shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base">📸 生成海报</button><button id="btn-copy" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-2xl font-bold shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base">🔗 复制结果</button></div><button id="retest-button" class="w-full bg-primary hover:bg-primaryDark text-white text-lg py-3.5 rounded-2xl font-bold shadow-md transition-all transform hover:-translate-y-1 active:translate-y-0 active:scale-95">再孵一次 🥚</button></div><p class="text-gray-400 text-xs mt-4">提示：结果已自动收录到图鉴中</p></div></div><footer class="text-gray-400 text-sm pb-8 w-full flex flex-col items-center gap-4"><div class="flex flex-col items-center justify-center gap-3"><a href="https://github.com/beihuNF" target="_blank" class="inline-flex items-center gap-2 bg-yellow-50 text-yellow-700 hover:text-yellow-800 hover:bg-yellow-100 px-4 py-1.5 rounded-full border border-yellow-200 shadow-sm select-none transition-all active:scale-95 no-underline"><span class="text-xs font-bold text-yellow-500 uppercase tracking-wider">作者</span><span class="font-bold">beihuNF</span></a><a href="https://qm.qq.com/q/ALM4b3lzCo" target="_blank" class="inline-flex items-center gap-2 bg-blue-50 text-blue-600 hover:text-blue-700 hover:bg-blue-100 px-4 py-1.5 rounded-full border border-blue-200 transition-all active:scale-95 no-underline shadow-sm group"><span class="text-xs font-bold text-blue-400 group-hover:text-blue-500 uppercase tracking-wider">QQ交流群</span><span class="font-medium font-mono text-sm pt-0.5">1169960292</span></a></div><div class="text-xs text-gray-400 mt-2 flex items-center gap-1"><span>🥚 灵感孵化自隔壁猪圈：</span><a href="https://nanancc.github.io/pig-text/?darkmode=0" target="_blank" class="font-bold text-yellow-500 hover:text-yellow-600 underline decoration-dashed underline-offset-4 transition-colors">测测你是不是猪</a></div></footer></div><div id="collection-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm"><div class="bg-white rounded-3xl w-11/12 max-w-md p-6 max-h-[90vh] flex flex-col shadow-2xl relative transform transition-all scale-95 opacity-0" id="collection-content"><div class="flex justify-between items-center mb-4"><h2 class="text-2xl font-bold text-gray-800">🐔 鸡窝图鉴</h2><button id="btn-close-collection" class="text-gray-400 hover:text-gray-600 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">×</button></div><div class="overflow-y-auto flex-1 p-1"><div class="collection-grid mb-4" id="collection-grid"></div><div id="collection-detail-panel" class="bg-gray-50 rounded-xl p-4 hidden border border-gray-100 shadow-inner"><div class="flex flex-col items-center text-center"><div class="mb-2"><img id="detail-img" class="w-24 h-24 object-contain hidden" src=""><div id="detail-emoji" class="text-6xl hidden"></div></div><h3 class="text-lg font-bold text-gray-800 mb-1 flex items-center gap-2"><span id="detail-name"></span><span id="detail-tag" class="hidden text-xs px-2 py-0.5 rounded-full text-white"></span></h3><p id="detail-desc" class="text-sm text-gray-600 leading-relaxed"></p></div></div></div><div class="mt-4 text-center text-sm text-gray-500 border-t pt-4">收集进度: <span id="collection-count" class="font-bold text-primaryDark">0</span> / <span id="total-count">0</span></div></div></div><script>const _t=["听说长按的时间越久，孵出的鸡越稀有？（假的）","每只鸡都有自己的性格，就像你一样。","孵化需要耐心，正如生活需要等待。","试试在深夜孵化，说不定会有奇迹？","不要晃动手机，小心蛋黄散了！","集齐所有图鉴可以召唤...什么也没有。","据说听着音乐孵化，鸡的艺术细胞会增加。","手指不要抖，小鸡在看着你呢。","想要隐藏款？试试大喊一声“芝麻开门”！","据说只有 1% 的人能抽到那只传说中的鸡。","孵化中... 正在注入灵魂...","今天的运气怎么样？让这颗蛋告诉你。","保持呼吸平稳，有助于孵化成功。","如果不小心孵出了怪东西，请不要惊慌。"];const _q=["大吉大利，今晚吃鸡！","不要做咸鱼，要做一只奋斗的鸡。","在这个看脸的世界，你选择了看鸡。","只有拼出来的美丽，没有等出来的辉煌。 —— 战斗鸡","生活就像这颗蛋，你永远不知道下一只会是什么。","有时候，退一步海阔天空，进一步...就是炸鸡店。","就算是小黄鸡，也有大大的梦想。","与其在别人的生活里跑龙套，不如做自己故事里的主角鸡。","即使是落汤鸡，抖抖水，依然是一条好汉。","早起的鸟儿有虫吃，早起的鸡儿被人吃。","所有的运气，都藏在你的坚持里。","咯咯哒~ 咯咯哒~ (这句最有哲理)","不管是白鸡黑鸡，能带来快乐的就是好鸡。"];const _w={N:100,S:15,H:5};const _d=[{id:"normal-chicken",name:"普通鸡",emoji:"🐔",description:"就是一只普普通通的家养鸡，生活乐无边。",weight:_w.N},{id:"fighter-chicken",name:"战斗鸡",emoji:"🥊",description:"公鸡中的战斗机！噢耶！",weight:_w.N},{id:"fried-chicken",name:"肯德鸡",emoji:"🍗",description:"香喷喷，酥脆脆，大家都爱你（的肉体）。",weight:_w.N},{id:"screaming-chicken",name:"尖叫鸡",emoji:"😱",description:"虽然很吵，但是能给别人带来快乐（或痛苦）。",weight:_w.N},{id:"weak-chicken",name:"弱鸡",emoji:"🍃",description:"身体虽然孱弱，但头脑...可能也不太行。",weight:_w.N},{id:"drowned-chicken",name:"落汤鸡",emoji:"💦",description:"最近水逆，出门记得带伞。",weight:_w.N},{id:"iron-rooster",name:"铁公鸡",emoji:"🪙",description:"一毛不拔！勤俭持家的极致。",weight:_w.N},{id:"mahjong-chicken",name:"幺鸡",emoji:"🀐",description:"麻将桌上的常客，容易被杠。",weight:_w.N},{id:"spicy-chicken",name:"辣子鸡",emoji:"🌶️",description:"性格火辣，让人欲罢不能。",weight:_w.N},{id:"repeater-chicken",name:"复读鸡",emoji:"🔁",description:"人类的本质是复读机，鸡也一样。鸡也一样。",weight:_w.N},{id:"kung-pao-chicken",name:"宫保鸡丁",emoji:"🥜",description:"你的灵魂里充满了花生米的香气。",weight:_w.N},{id:"crane-chicken",name:"鹤立鸡群",emoji:"🦢",description:"由于太过优秀，在鸡群中显得格格不入。",weight:_w.N},{id:"wooden-chicken",name:"呆若木鸡",emoji:"🪵",description:"泰山崩于前而色不变，其实是反应慢。",weight:_w.N},{id:"little-chick",name:"小黄鸡",emoji:"🐥",description:"永远长不大的宝宝，可可爱爱。",weight:_w.N},{id:"old-hen",name:"老母鸡",emoji:"🍲",description:"成熟稳重，适合炖汤（划掉）照顾人。",weight:_w.N},{id:"call-chicken",name:"打鸣鸡",emoji:"⏰",description:"天生闹钟，早起达人，邻居的最爱。",weight:_w.N},{id:"gym-chicken",name:"肌霸鸡",emoji:"💪",description:"甚至不吃蛋白粉就能练出胸肌。",weight:_w.N},{id:"nugget",name:"麦乐鸡",emoji:"🥡",description:"虽然是合成的，但也要活得精彩！",weight:_w.N},{id:"phoenix",name:"凤凰",emoji:"🔥",description:"其实你是凤凰，只是暂时在鸡窝里卧底。",category:"hidden",weight:_w.H},{id:"strange-chicken",name:"只因",emoji:"🏀",description:"你会唱、跳、Rap和篮球吗？",category:"hidden",weight:_w.H},{id:"human",name:"人类",emoji:"🧑",description:"经过精密检测，你竟然是个人类！是不是走错片场了？",category:"special",weight:_w.S},{id:"renji",name:"仁济",emoji:"🤖",description:"虽然名字好听，但其实是‘人机’的意思。你像人机一样呆呆的，眼神中透着清澈的愚蠢。",category:"special",weight:_w.S}];const _s={m:false,h:false,st:0,pi:null,u:new Set(JSON.parse(localStorage.getItem('unlockedChickens')||'[]')),hc:false,pr:null};const _e={ta:document.getElementById('test-area'),ra:document.getElementById('result-area'),rci:document.getElementById('result-card-inner'),pb:document.getElementById('progress-bar'),ph:document.getElementById('press-hint'),i:document.getElementById('instruction'),ri:document.getElementById('result-image'),red:document.getElementById('result-emoji-display'),rt:document.getElementById('result-title'),rd:document.getElementById('result-description'),rq:document.getElementById('random-quote'),tag:document.getElementById('rare-tag'),bc:document.getElementById('btn-collection'),bdg:document.getElementById('collection-badge'),bm:document.getElementById('btn-mute'),bs:document.getElementById('btn-share'),bcp:document.getElementById('btn-copy'),t:document.getElementById('toast'),tm:document.getElementById('toast-message'),cm:document.getElementById('collection-modal'),cc:document.getElementById('collection-content'),bcc:document.getElementById('btn-close-collection'),cg:document.getElementById('collection-grid'),ccnt:document.getElementById('collection-count'),tc:document.getElementById('total-count'),cdp:document.getElementById('collection-detail-panel'),di:document.getElementById('detail-img'),de:document.getElementById('detail-emoji'),dn:document.getElementById('detail-name'),dt:document.getElementById('detail-tag'),dd:document.getElementById('detail-desc'),es:document.querySelector('.egg-svg'),er:document.getElementById('egg-rays'),eri:document.querySelector('.rays'),cr:[document.getElementById('crack-1'),document.getElementById('crack-2'),document.getElementById('crack-3')],fb:document.getElementById('floating-bg'),pc:document.getElementById('preload-cache')};const _i=()=>{_pi();_ucs();_srt();_ifb();const lr=localStorage.getItem('currentResult');if(lr){_sr(JSON.parse(lr),false)}};const _pi=()=>{_d.forEach(c=>{const i=new Image();i.src=`image/${c.id}.png`;i.style.display='none';if(_e.pc){_e.pc.appendChild(i)}})};const _ifb=()=>{const em=['🥚','🐣','🐥','🐓','🐾','🌾'];const c=_e.fb;for(let i=0;i<15;i++){const el=document.createElement('div');el.className='float-item text-2xl absolute opacity-0 select-none';el.textContent=em[Math.floor(Math.random()*em.length)];el.style.left=`${Math.random()*100}%`;el.style.animationDelay=`${Math.random()*10}s`;el.style.animationDuration=`${10+Math.random()*10}s`;el.style.fontSize=`${1+Math.random()}rem`;c.appendChild(el)}};let _tt;const _st=(m)=>{if(_tt)clearTimeout(_tt);_e.tm.textContent=m;_e.t.classList.remove('opacity-0','translate-y-[-20px]');_e.t.classList.add('opacity-100','translate-y-0');_tt=setTimeout(()=>{_e.t.classList.remove('opacity-100','translate-y-0');_e.t.classList.add('opacity-0','translate-y-[-20px]')},3000)};const _srt=()=>{const i=Math.floor(Math.random()*_t.length);_e.i.textContent=_t[i]};const _gwr=()=>{const tw=_d.reduce((s,i)=>s+i.weight,0);let r=Math.random()*tw;for(const c of _d){if(r<c.weight)return c;r-=c.weight}return _d[0]};const _fh=(r)=>{_ps('crack');_e.ta.classList.add('hidden');_e.ra.classList.remove('hidden');localStorage.setItem('currentResult',JSON.stringify(r));if(!_s.u.has(r.id)){_s.u.add(r.id);localStorage.setItem('unlockedChickens',JSON.stringify([..._s.u]));_ucs();_e.bdg.classList.remove('hidden');_cf()}_sr(r,true)};const _cf=()=>{if(_s.u.size===_d.length&&!_s.hc){_s.hc=true;setTimeout(()=>{_st('🎉 恭喜！您已达成全收集成就！🎉');_ps('complete');var e=Date.now()+(5*1000);(function f(){confetti({particleCount:5,angle:60,spread:55,origin:{x:0},colors:['#FFD700','#FCD34D']});confetti({particleCount:5,angle:120,spread:55,origin:{x:1},colors:['#FFD700','#FCD34D']});if(Date.now()<e){requestAnimationFrame(f)}})()},1000)}};const _sr=(r,pe=true)=>{_e.ta.classList.add('hidden');_e.ra.classList.remove('hidden');_e.rt.textContent=r.name;_e.rd.textContent=r.description;_e.rq.textContent="“ "+_q[Math.floor(Math.random()*_q.length)]+" ”";_e.rci.className='bg-yellow-50 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[20rem] border-4 border-yellow-100 transition-colors duration-500 relative w-full';_e.rt.className='text-2xl md:text-3xl font-bold text-gray-800 mb-2';_e.tag.classList.add('hidden');if(r.category==='hidden'){_e.rci.classList.add('rare-bg','border-yellow-400');_e.rci.classList.remove('bg-yellow-50','border-yellow-100');_e.rt.classList.add('text-red-600');_e.tag.textContent='✨ 隐藏款 ✨';_e.tag.className='absolute top-3 right-3 px-3 py-1 bg-gradient-to-r from-yellow-400 to-red-500 text-white text-xs font-bold rounded-full shadow-sm z-10';_e.tag.classList.remove('hidden')}else if(r.category==='special'){_e.rci.classList.add('special-bg','border-purple-400');_e.rci.classList.remove('bg-yellow-50','border-yellow-100');_e.rt.classList.add('text-purple-600');_e.tag.textContent='🌟 特殊款 🌟';_e.tag.className='absolute top-3 right-3 px-3 py-1 bg-gradient-to-r from-purple-400 to-pink-500 text-white text-xs font-bold rounded-full shadow-sm z-10';_e.tag.classList.remove('hidden')}const ip=`image/${r.id}.png`;_e.ri.src=ip;_e.ri.classList.remove('hidden');_e.red.classList.add('hidden');_e.ri.onerror=()=>{_e.ri.classList.add('hidden');_e.red.textContent=r.emoji;_e.red.classList.remove('hidden')};if(pe){_ps('complete');const pc=r.category?150:50;confetti({particleCount:pc,spread:70,origin:{y:0.6},colors:r.category==='hidden'?['#FFD700','#FFA500']:(r.category==='special'?['#A855F7','#EC4899']:undefined)})}};const _ucs=()=>{let vt=0;_d.forEach(c=>{if(c.category!=='hidden'||_s.u.has(c.id)){vt++}});_e.ccnt.textContent=_s.u.size;_e.tc.textContent=vt};const _rc=()=>{_e.cg.innerHTML='';_e.cdp.classList.add('hidden');_d.forEach(c=>{const iu=_s.u.has(c.id);const ih=c.category==='hidden';if(ih&&!iu)return;const el=document.createElement('div');let cl='collection-item';if(iu){if(c.category==='hidden')cl+=' unlocked-hidden';else if(c.category==='special')cl+=' unlocked-special';else cl+=' unlocked-normal'}else{cl+=' locked'}el.className=cl;if(iu){el.innerHTML=`<img src="image/${c.id}.png" class="w-full h-full object-contain pointer-events-none" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="hidden">${c.emoji}</span>`;el.addEventListener('click',()=>_scd(c))}else{el.textContent='❓'}_e.cg.appendChild(el)})};const _scd=(c)=>{document.querySelectorAll('.collection-item').forEach(el=>el.classList.remove('selected'));const ip=`image/${c.id}.png`;_e.di.src=ip;_e.di.classList.remove('hidden');_e.de.classList.add('hidden');_e.di.onerror=()=>{_e.di.classList.add('hidden');_e.de.textContent=c.emoji;_e.de.classList.remove('hidden')};_e.dn.textContent=c.name;_e.dd.textContent=c.description;if(c.category==='hidden'){_e.dt.textContent='隐藏款';_e.dt.className='text-xs px-2 py-0.5 rounded-full text-white bg-yellow-500';_e.dt.classList.remove('hidden')}else if(c.category==='special'){_e.dt.textContent='特殊款';_e.dt.className='text-xs px-2 py-0.5 rounded-full text-white bg-purple-500';_e.dt.classList.remove('hidden')}else{_e.dt.classList.add('hidden')}_e.cdp.classList.remove('hidden')};const _tc=(show)=>{if(show){_rc();_e.cm.classList.remove('hidden');_e.bdg.classList.add('hidden');setTimeout(()=>{_e.cc.classList.remove('opacity-0','scale-95');_e.cc.classList.add('opacity-100','scale-100')},10)}else{_e.cc.classList.remove('opacity-100','scale-100');_e.cc.classList.add('opacity-0','scale-95');setTimeout(()=>{_e.cm.classList.add('hidden')},300)}};const _sh=(e)=>{if(e.cancelable)e.preventDefault();if(localStorage.getItem('currentResult'))return;_s.pr=_gwr();_s.h=true;_s.st=Date.now();let rc='transparent';if(_s.pr.category==='hidden')rc='#FFD700';else if(_s.pr.category==='special')rc='#A855F7';if(rc!=='transparent'){_e.eri.style.setProperty('--ray-color',rc)}_e.ph.classList.add('hidden');_e.i.textContent="正在孵化中...加油！";_e.es.classList.add('animate-egg-shake');_e.ta.querySelector('.progress-container').classList.add('charging');_v(50);_s.pi=setInterval(()=>{if(!_s.h)return;const et=Date.now()-_s.st;const p=Math.min(et/2500,1);_e.pb.style.width=`${p*100}%`;if(p>0.3){_e.cr[0].style.opacity=1;_ucg(_e.cr[0])}if(p>0.6){_e.cr[1].style.opacity=1;_ucg(_e.cr[1])}if(p>0.9){_e.cr[2].style.opacity=1;_ucg(_e.cr[2])}if(_s.pr.category&&p>0.2){_e.er.style.opacity=p*0.8}if(p>0.8&&Math.random()>0.7)_v(20);if(p>=1){_th(true);_fh(_s.pr)}},30)};const _ucg=(el)=>{if(!_s.pr)return;if(_s.pr.category==='hidden'){el.classList.add('crack-glow-gold')}else if(_s.pr.category==='special'){el.classList.add('crack-glow-purple')}};const _th=(f=false)=>{_s.h=false;clearInterval(_s.pi);_e.es.classList.remove('animate-egg-shake');_e.ta.querySelector('.progress-container').classList.remove('charging');if(!f){_e.er.style.opacity=0;_e.cr.forEach(c=>{c.style.opacity=0;c.classList.remove('crack-glow-gold','crack-glow-purple')})}if(!localStorage.getItem('currentResult')&&!f){_e.pb.style.width='0%';_e.ph.classList.remove('hidden');_srt();_s.pr=null}};const _rtst=()=>{localStorage.removeItem('currentResult');_e.ra.classList.add('hidden');_e.ta.classList.remove('hidden');_e.er.style.opacity=0;_e.cr.forEach(c=>{c.style.opacity=0;c.classList.remove('crack-glow-gold','crack-glow-purple')});_th()};const _v=(ms)=>{if(navigator.vibrate)navigator.vibrate(ms)};const _ps=(t)=>{if(_s.m)return;try{const A=window.AudioContext||window.webkitAudioContext;const c=new A();const o=c.createOscillator();const g=c.createGain();o.connect(g);g.connect(c.destination);const n=c.currentTime;if(t==='crack'){o.type='sawtooth';o.frequency.setValueAtTime(150,n);o.frequency.exponentialRampToValueAtTime(40,n+0.1);g.gain.setValueAtTime(0.5,n);g.gain.exponentialRampToValueAtTime(0.01,n+0.1);o.start(n);o.stop(n+0.1)}else if(t==='complete'){o.type='triangle';o.frequency.setValueAtTime(523.25,n);o.frequency.linearRampToValueAtTime(659.25,n+0.1);o.frequency.linearRampToValueAtTime(783.99,n+0.2);g.gain.setValueAtTime(0.3,n);g.gain.linearRampToValueAtTime(0,n+0.5);o.start(n);o.stop(n+0.5)}}catch(e){}};const _gp=()=>{html2canvas(document.getElementById('capture-target'),{backgroundColor:null,scale:2}).then(c=>{const l=document.createElement('a');l.download=`我是${_e.rt.textContent}.png`;l.href=c.toDataURL();l.click();_st('📸 海报已生成，快去相册看看！')}).catch(e=>{console.error(e);_st('❌ 生成海报失败，请尝试截图~')})};const _cr=()=>{const u=window.location.href;const t=`我在《测测你是什么鸡》中孵化出了【${_e.rt.textContent}】！\n${_e.rd.textContent}\n你也来试试吧！👉 ${u}`;const s=()=>_st('🔗 结果已复制，快去分享吧！');if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(s)}else{const ta=document.createElement("textarea");ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);s()}};const _p=document.querySelector('.progress-container');_p.addEventListener('mousedown',_sh);_p.addEventListener('touchstart',_sh,{passive:false});document.addEventListener('mouseup',()=>_th(false));document.addEventListener('touchend',()=>_th(false));document.addEventListener('touchcancel',()=>_th(false));document.getElementById('retest-button').addEventListener('click',_rtst);_e.bs.addEventListener('click',_gp);_e.bcp.addEventListener('click',_cr);_e.bm.addEventListener('click',()=>{_s.m=!_s.m;_e.bm.textContent=_s.m?'🔇':'🔊'});_e.bc.addEventListener('click',()=>_tc(true));_e.bcc.addEventListener('click',()=>_tc(false));_e.cm.addEventListener('click',(e)=>{if(e.target===_e.cm)_tc(false)});document.addEventListener('contextmenu',e=>e.preventDefault());document.addEventListener('selectstart',e=>e.preventDefault());_i();</script></body></html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>测测你是什么鸡</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐣</text></svg>">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FCD34D',
+            primaryDark: '#F59E0B',
+            secondary: '#FFFBEB',
+            accent: '#EF4444',
+            gold: '#FFD700',
+            purple: '#A855F7',
+            luck: '#10B981',
+            achievement: '#3B82F6',
+          },
+          fontFamily: {
+            sans: ['Arial Rounded MT Bold', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+          },
+          animation: {
+            'bounce-slow': 'bounce 2s infinite',
+            'wiggle': 'wiggle 1s ease-in-out infinite',
+            'pulse-slow': 'pulse 3s infinite',
+            'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+            'egg-shake': 'egg-shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+            'float-up': 'floatUp 10s linear infinite',
+            'pulse-glow': 'pulseGlow 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'spin-rays': 'spin 10s linear infinite',
+            'pop-in': 'popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+            'float': 'float 3s ease-in-out infinite',
+          },
+          keyframes: {
+            wiggle: {
+              '0%, 100%': { transform: 'rotate(-3deg)' },
+              '50%': { transform: 'rotate(3deg)' },
+            },
+            shake: {
+              '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+              '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+              '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+              '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
+            },
+            'egg-shake': {
+              '0%': { transform: 'rotate(0deg)' },
+              '25%': { transform: 'rotate(-5deg)' },
+              '50%': { transform: 'rotate(5deg)' },
+              '75%': { transform: 'rotate(-5deg)' },
+              '100%': { transform: 'rotate(0deg)' }
+            },
+            floatUp: {
+              '0%': { transform: 'translateY(100vh) rotate(0deg)', opacity: 0 },
+              '10%': { opacity: 0.6 },
+              '90%': { opacity: 0.6 },
+              '100%': { transform: 'translateY(-20vh) rotate(360deg)', opacity: 0 }
+            },
+            pulseGlow: {
+              '0%, 100%': { opacity: 0.5, transform: 'scale(1)' },
+              '50%': { opacity: 0.8, transform: 'scale(1.1)' }
+            },
+            spin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' }
+            },
+            popIn: {
+              '0%': { opacity: 0, transform: 'scale(0.5)' },
+              '100%': { opacity: 1, transform: 'scale(1)' }
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+      .text-shadow-lg { text-shadow: 0 4px 8px rgba(0,0,0,0.12), 0 2px 4px rgba(0,0,0,0.08); }
+    }
+    
+    :root {
+      --color-primary: #FCD34D;
+      --color-primary-dark: #F59E0B;
+      --color-gold: #FFD700;
+      --color-purple: #A855F7;
+      --color-luck: #10B981;
+      --animation-duration: 0.3s;
+    }
+    
+    body {
+      touch-action: none; 
+      user-select: none; 
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      overflow: hidden; 
+    }
+
+    .egg-svg {
+      transition: transform 0.1s;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+      position: relative;
+      z-index: 10;
+    }
+    .egg-body {
+      transition: fill 0.5s ease, stroke 0.5s ease;
+    }
+    
+    .egg-crack {
+      fill: none;
+      stroke: #D97706;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0;
+      transition: opacity 0.2s, stroke 0.3s, filter 0.3s;
+    }
+
+    .crack-glow-gold {
+      stroke: #FFD700 !important;
+      filter: drop-shadow(0 0 2px #FFD700) drop-shadow(0 0 5px #F59E0B);
+    }
+    .crack-glow-purple {
+      stroke: #A855F7 !important;
+      filter: drop-shadow(0 0 2px #A855F7) drop-shadow(0 0 5px #9333EA);
+    }
+
+    .rays-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 300px;
+      height: 300px;
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.5s;
+      pointer-events: none;
+    }
+    
+    .rays {
+      width: 100%;
+      height: 100%;
+      background: conic-gradient(from 0deg, 
+        transparent 0deg, var(--ray-color) 20deg, 
+        transparent 40deg, var(--ray-color) 60deg, 
+        transparent 80deg, var(--ray-color) 100deg, 
+        transparent 120deg, var(--ray-color) 140deg, 
+        transparent 160deg, var(--ray-color) 180deg, 
+        transparent 200deg, var(--ray-color) 220deg, 
+        transparent 240deg, var(--ray-color) 260deg, 
+        transparent 280deg, var(--ray-color) 300deg, 
+        transparent 320deg, var(--ray-color) 340deg, 
+        transparent 360deg);
+      animation: spin-rays 10s linear infinite;
+      mask-image: radial-gradient(circle, transparent 30%, black 70%);
+      -webkit-mask-image: radial-gradient(circle, transparent 30%, black 70%);
+    }
+    
+    .charge-aura {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(252, 211, 77, 0.6) 0%, rgba(252, 211, 77, 0) 70%);
+      border-radius: 50%;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .charging .charge-aura {
+      opacity: 1;
+      animation: pulseGlow 1s infinite alternate;
+    }
+    
+    .fallback-emoji {
+      font-size: 8rem;
+      line-height: 1;
+      width: 12rem;
+      height: 12rem;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    }
+
+    .rare-bg {
+      background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 50%, #fcd34d 100%);
+      border-color: #fbbf24;
+    }
+    .special-bg {
+      background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 50%, #d8b4fe 100%);
+      border-color: #c084fc;
+    }
+
+    .collection-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    .collection-item {
+      aspect-ratio: 1;
+      border-radius: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem; 
+      background-color: #F3F4F6;
+      border: 2px solid #E5E7EB;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .collection-item.locked {
+      filter: grayscale(100%);
+      opacity: 0.6;
+      cursor: default;
+    }
+    
+    .collection-item.unlocked-normal {
+      background-color: #FEF3C7;
+      border-color: #FCD34D;
+      box-shadow: 0 2px 4px rgba(252, 211, 77, 0.2);
+    }
+
+    @keyframes glow-gold {
+      0%, 100% { border-color: #F59E0B; box-shadow: 0 0 5px #F59E0B, inset 0 0 5px rgba(245, 158, 11, 0.2); }
+      50% { border-color: #FCD34D; box-shadow: 0 0 15px #FCD34D, inset 0 0 15px rgba(252, 211, 77, 0.5); }
+    }
+    @keyframes glow-purple {
+      0%, 100% { border-color: #9333EA; box-shadow: 0 0 5px #9333EA, inset 0 0 5px rgba(147, 51, 234, 0.2); }
+      50% { border-color: #C084FC; box-shadow: 0 0 15px #C084FC, inset 0 0 15px rgba(192, 132, 252, 0.5); }
+    }
+
+    .collection-item.unlocked-hidden {
+      background: linear-gradient(135deg, #FEF9C3 0%, #FCD34D 100%);
+      animation: glow-gold 2s infinite ease-in-out;
+      border-width: 2px;
+      z-index: 1;
+    }
+
+    .collection-item.unlocked-special {
+      background: linear-gradient(135deg, #F3E8FF 0%, #D8B4FE 100%);
+      animation: glow-purple 2s infinite ease-in-out;
+      border-width: 2px;
+      z-index: 1;
+    }
+
+    .collection-item.selected {
+      transform: scale(1.05);
+      border-width: 3px;
+    }
+
+    .floating-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .float-item {
+      position: absolute;
+      bottom: -10%;
+      opacity: 0;
+      animation: floatUp 15s linear infinite;
+    }
+
+    .new-badge {
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      background: #EF4444;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.5rem;
+      transform: rotate(-15deg);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      z-index: 20;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    .modal-enter { opacity: 0; transform: scale(0.95); }
+    .modal-enter-active { opacity: 1; transform: scale(1); transition: opacity 0.3s, transform 0.3s; }
+    .modal-exit { opacity: 1; transform: scale(1); }
+    .modal-exit-active { opacity: 0; transform: scale(0.95); transition: opacity 0.3s, transform 0.3s; }
+  </style>
+</head>
+<body class="bg-secondary min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
+
+  <div id="floating-bg" class="floating-bg"></div>
+
+  <div id="preload-cache" style="position: absolute; width: 0; height: 0; overflow: hidden; opacity: 0; z-index: -1;"></div>
+
+  <div id="toast" class="fixed top-6 left-1/2 transform -translate-x-1/2 bg-white border-2 border-yellow-200 px-6 py-3 rounded-full shadow-xl z-[60] flex items-center gap-3 transition-all duration-300 opacity-0 translate-y-[-20px] pointer-events-none">
+    <span class="text-2xl animate-bounce">🐤</span>
+    <span id="toast-message" class="text-gray-700 font-bold text-sm md:text-base whitespace-nowrap"></span>
+  </div>
+
+  <div class="absolute top-4 left-4 z-20 flex flex-col gap-2">
+    <button id="btn-collection" class="bg-white p-2 rounded-full shadow-md text-xl hover:scale-110 transition-transform relative">
+      📖
+      <span id="collection-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center hidden">!</span>
+    </button>
+    <button id="btn-achievement" class="bg-white p-2 rounded-full shadow-md text-xl hover:scale-110 transition-transform relative">
+      🏆
+      <span id="achievement-badge" class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center hidden">!</span>
+    </button>
+    <button id="btn-stats" class="bg-white p-2 rounded-full shadow-md text-xl hover:scale-110 transition-transform">
+      📊
+    </button>
+  </div>
+  <div class="absolute top-4 right-4 z-20 flex flex-col gap-2">
+    <button id="btn-mute" class="bg-white p-2 rounded-full shadow-md text-xl hover:scale-110 transition-transform">
+      🔊
+    </button>
+  </div>
+  
+  <div class="absolute top-4 left-1/2 transform -translate-x-1/2 z-20">
+    <div class="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-md flex items-center gap-2">
+      <span class="text-sm font-bold text-gray-700">🍀 幸运值:</span>
+      <span id="luck-value" class="text-sm font-bold text-luck">50</span>
+      <div class="w-20 bg-gray-200 rounded-full h-2">
+        <div id="luck-bar" class="bg-luck h-2 rounded-full transition-all duration-300" style="width: 50%"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container max-w-md mx-auto text-center z-10">
+    <h1 class="text-4xl md:text-5xl font-bold mb-6 text-primaryDark text-shadow-lg select-none">
+      测测你是什么鸡 <span class="text-accent">🐣</span>
+    </h1>
+    
+    <div id="main-card" class="bg-white rounded-3xl shadow-lg p-6 mb-8 transform transition-all duration-300 hover:shadow-xl border-4 border-yellow-100 relative overflow-hidden">
+      
+      <div id="test-area" class="mb-2">
+        <div class="progress-container mx-auto cursor-pointer active:scale-95 transition-transform duration-100 relative w-[200px] h-[200px] flex items-center justify-center">
+          
+          <div id="egg-rays" class="rays-container">
+            <div class="rays"></div>
+          </div>
+
+          <div class="charge-aura"></div>
+
+          <svg class="egg-svg w-full h-full" viewBox="0 0 200 250" xmlns="http://www.w3.org/2000/svg">
+            <path id="egg-body" class="egg-body" d="M100 10 C 50 10, 10 90, 10 150 C 10 210, 50 240, 100 240 C 150 240, 190 210, 190 150 C 190 90, 150 10, 100 10 Z" fill="#FEF3C7" stroke="#F59E0B" stroke-width="3"/>
+            <path id="crack-1" class="egg-crack" d="M100 10 L 90 40 L 110 60" />
+            <path id="crack-2" class="egg-crack" d="M100 10 L 90 40 L 110 60 L 80 90 L 100 120" />
+            <path id="crack-3" class="egg-crack" d="M100 10 L 90 40 L 110 60 L 80 90 L 100 120 L 120 150 L 90 180" />
+          </svg>
+          
+          <div id="press-hint" class="press-hint absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+            <div class="text-5xl mb-2 animate-bounce">🥚</div>
+            <p class="text-lg text-gray-500 font-medium whitespace-nowrap">长按孵化</p>
+          </div>
+        </div>
+        
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-6 mb-2 overflow-hidden">
+          <div id="progress-bar" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
+        </div>
+        
+        <p id="instruction" class="text-gray-500 font-medium h-6 transition-opacity duration-300">
+          准备好迎接你的鸡了吗？
+        </p>
+      </div>
+      
+      <div id="result-area" class="hidden w-full">
+        <div id="capture-target" class="p-4 bg-white rounded-3xl w-full mx-auto shadow-sm relative">
+          <div id="new-badge-container"></div>
+          
+          <div id="result-card-inner" class="bg-yellow-50 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[20rem] border-4 border-yellow-100 transition-colors duration-500 relative w-full">
+            
+            <div id="rare-tag" class="hidden absolute top-3 right-3 px-3 py-1 text-white text-xs font-bold rounded-full shadow-sm z-10">
+            </div>
+
+            <div id="result-visual" class="mb-4 relative z-0">
+              <img id="result-image" class="w-40 h-40 md:w-48 md:h-48 object-contain hidden filter drop-shadow-md animate-float" src="" alt="结果图片" crossorigin="anonymous">
+              <div id="result-emoji-display" class="fallback-emoji hidden flex items-center justify-center animate-float"></div>
+            </div>
+            
+            <h2 id="result-title" class="text-2xl md:text-3xl font-bold text-gray-800 mb-2"></h2>
+            <p id="result-description" class="text-gray-600 text-base md:text-lg px-2 leading-relaxed">
+              
+            </p>
+            
+            <div class="mt-4 pt-3 border-t border-black/5 w-full">
+              <p id="random-quote" class="text-xs text-gray-400 italic font-medium"></p>
+            </div>
+            
+            <p class="text-[10px] text-gray-300 mt-2">测测你是什么鸡</p>
+          </div>
+        </div>
+        
+        <div class="flex flex-col gap-3 mt-6">
+          <div class="flex gap-3 justify-center">
+            <button id="btn-share" class="flex-1 bg-green-500 hover:bg-green-600 text-white py-3 rounded-2xl font-bold shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base">
+              📸 生成海报
+            </button>
+            <button id="btn-copy" class="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-2xl font-bold shadow-md transition-transform active:scale-95 flex items-center justify-center gap-2 text-sm md:text-base">
+              🔗 复制结果
+            </button>
+          </div>
+          <button id="retest-button" class="w-full bg-primary hover:bg-primaryDark text-white text-lg py-3.5 rounded-2xl font-bold shadow-md transition-all transform hover:-translate-y-1 active:translate-y-0 active:scale-95">
+            再孵一次 🥚
+          </button>
+        </div>
+        
+        <p class="text-gray-400 text-xs mt-4">
+          提示：结果已自动收录到图鉴中
+        </p>
+      </div>
+    </div>
+    
+    <footer class="text-gray-400 text-sm pb-8 w-full flex flex-col items-center gap-4">
+      <div class="flex flex-col items-center justify-center gap-3">
+        
+        <a href="https://github.com/beihuNF" target="_blank" class="inline-flex items-center gap-2 bg-yellow-50 text-yellow-700 hover:text-yellow-800 hover:bg-yellow-100 px-4 py-1.5 rounded-full border border-yellow-200 shadow-sm select-none transition-all active:scale-95 no-underline">
+          <span class="text-xs font-bold text-yellow-500 uppercase tracking-wider">作者</span>
+          <span class="font-bold">beihuNF</span>
+        </a>
+
+        <a href="https://qm.qq.com/q/ALM4b3lzCo" target="_blank" class="inline-flex items-center gap-2 bg-blue-50 text-blue-600 hover:text-blue-700 hover:bg-blue-100 px-4 py-1.5 rounded-full border border-blue-200 transition-all active:scale-95 no-underline shadow-sm group">
+          <span class="text-xs font-bold text-blue-400 group-hover:text-blue-500 uppercase tracking-wider">QQ交流群</span>
+          <span class="font-medium font-mono text-sm pt-0.5">1169960292</span>
+        </a>
+
+      </div>
+
+      <div class="text-xs text-gray-400 mt-2 flex items-center gap-1">
+        <span>🥚 灵感孵化自隔壁猪圈：</span>
+        <a href="https://nanancc.github.io/pig-text/?darkmode=0" target="_blank" class="font-bold text-yellow-500 hover:text-yellow-600 underline decoration-dashed underline-offset-4 transition-colors">
+          测测你是不是猪
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div id="collection-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl w-11/12 max-w-md p-6 max-h-[90vh] flex flex-col shadow-2xl relative transform transition-all scale-95 opacity-0" id="collection-content">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">🐔 鸡窝图鉴</h2>
+        <button id="btn-close-collection" class="text-gray-400 hover:text-gray-600 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">×</button>
+      </div>
+      
+      <div class="overflow-y-auto flex-1 p-1">
+        <div class="collection-grid mb-4" id="collection-grid">
+        </div>
+        
+        <div id="collection-detail-panel" class="bg-gray-50 rounded-xl p-4 hidden border border-gray-100 shadow-inner">
+          <div class="flex flex-col items-center text-center">
+             <div class="mb-2">
+                <img id="detail-img" class="w-24 h-24 object-contain hidden" src="">
+                <div id="detail-emoji" class="text-6xl hidden"></div>
+             </div>
+             <h3 class="text-lg font-bold text-gray-800 mb-1 flex items-center gap-2">
+               <span id="detail-name"></span>
+               <span id="detail-tag" class="hidden text-xs px-2 py-0.5 rounded-full text-white"></span>
+             </h3>
+             <p id="detail-desc" class="text-sm text-gray-600 leading-relaxed"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center text-sm text-gray-500 border-t pt-4 flex flex-col gap-1">
+        <div>收集进度: <span id="collection-count" class="font-bold text-primaryDark">0</span> / <span id="total-count">0</span></div>
+        <div class="text-xs text-gray-400">已累计孵化 <span id="total-draws" class="font-bold text-blue-500">0</span> 次</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="achievement-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl w-11/12 max-w-md p-6 max-h-[90vh] flex flex-col shadow-2xl relative transform transition-all scale-95 opacity-0" id="achievement-content">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">🏆 成就殿堂</h2>
+        <button id="btn-close-achievement" class="text-gray-400 hover:text-gray-600 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">×</button>
+      </div>
+      
+      <div class="overflow-y-auto flex-1 p-1">
+        <div id="achievement-list" class="space-y-3">
+        </div>
+      </div>
+
+      <div class="mt-4 text-center text-sm text-gray-500 border-t pt-4">
+        已解锁成就: <span id="achievement-count" class="font-bold text-achievement">0</span> / <span id="achievement-total">0</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="stats-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+    <div class="bg-white rounded-3xl w-11/12 max-w-md p-6 max-h-[90vh] flex flex-col shadow-2xl relative transform transition-all scale-95 opacity-0" id="stats-content">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold text-gray-800">📊 数据统计</h2>
+        <button id="btn-close-stats" class="text-gray-400 hover:text-gray-600 text-2xl w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">×</button>
+      </div>
+      
+      <div class="overflow-y-auto flex-1 p-1">
+        <div class="bg-gradient-to-r from-yellow-50 to-orange-50 rounded-xl p-4 mb-4">
+          <h3 class="font-bold text-gray-700 mb-3">📊 总体数据</h3>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="bg-white rounded-lg p-3">
+              <div class="text-2xl font-bold text-primary" id="stats-total-draws">0</div>
+              <div class="text-xs text-gray-500">总孵化次数</div>
+            </div>
+            <div class="bg-white rounded-lg p-3">
+              <div class="text-2xl font-bold text-purple" id="stats-collection">0/0</div>
+              <div class="text-xs text-gray-500">收集进度</div>
+            </div>
+            <div class="bg-white rounded-lg p-3">
+              <div class="text-2xl font-bold text-luck" id="stats-luck">50</div>
+              <div class="text-xs text-gray-500">当前幸运值</div>
+            </div>
+            <div class="bg-white rounded-lg p-3">
+              <div class="text-2xl font-bold text-achievement" id="stats-achievements">0</div>
+              <div class="text-xs text-gray-500">已解锁成就</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-4 mb-4">
+          <h3 class="font-bold text-gray-700 mb-3">🌟 稀有度统计</h3>
+          <div class="space-y-2">
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">普通款</span>
+              <span class="font-bold text-gray-700" id="stats-normal">0</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">特殊款</span>
+              <span class="font-bold text-purple" id="stats-special">0</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-600">隐藏款</span>
+              <span class="font-bold text-gold" id="stats-hidden">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gray-50 rounded-xl p-4">
+          <h3 class="font-bold text-gray-700 mb-3">📜 最近孵化</h3>
+          <div id="history-list" class="space-y-2 max-h-40 overflow-y-auto">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CONFIG = {
+      BASE_WEIGHTS: {
+        NORMAL: 47,
+        SPECIAL: 50,
+        HIDDEN: 25
+      },
+      LUCK_MULTIPLIER: {
+        SPECIAL: 1.5,
+        HIDDEN: 0.8
+      },
+      HATCHING_DURATION: 2500,
+      INITIAL_LUCK: 50,
+      DAILY_LUCK_BONUS: 5,
+      MAX_LUCK: 100,
+      HISTORY_MAX_LENGTH: 20
+    };
+    
+    const tips = [
+      "听说长按的时间越久，孵出的鸡越稀有？（假的）",
+      "每只鸡都有自己的性格，就像你一样。",
+      "孵化需要耐心，正如生活需要等待。",
+      "试试在深夜孵化，说不定会有奇迹？",
+      "不要晃动手机，小心蛋黄散了！",
+      "集齐所有图鉴可以召唤...什么也没有。",
+      "据说听着音乐孵化，鸡的艺术细胞会增加。",
+      "手指不要抖，小鸡在看着你呢。",
+      "想要隐藏款？试试大喊一声“芝麻开门”！",
+      "据说只有 1% 的人能抽到那只传说中的鸡。",
+      "孵化中... 正在注入灵魂...",
+      "今天的运气怎么样？让这颗蛋告诉你。",
+      "保持呼吸平稳，有助于孵化成功。",
+      "如果不小心孵出了怪东西，请不要惊慌。"
+    ];
+
+    const chickenQuotes = [
+      "大吉大利，今晚吃鸡！",
+      "不要做咸鱼，要做一只奋斗的鸡。",
+      "在这个看脸的世界，你选择了看鸡。",
+      "只有拼出来的美丽，没有等出来的辉煌。 —— 战斗鸡",
+      "生活就像这颗蛋，你永远不知道下一只会是什么。",
+      "有时候，退一步海阔天空，进一步...就是炸鸡店。",
+      "就算是小黄鸡，也有大大的梦想。",
+      "与其在别人的生活里跑龙套，不如做自己故事里的主角鸡。",
+      "即使是落汤鸡，抖抖水，依然是一条好汉。",
+      "早起的鸟儿有虫吃，早起的鸡儿被人吃。",
+      "所有的运气，都藏在你的坚持里。",
+      "咯咯哒~ 咯咯哒~ (这句最有哲理)",
+      "不管是白鸡黑鸡，能带来快乐的就是好鸡。"
+    ];
+
+    const ACHIEVEMENTS = [
+      { id: 'first-hatch', name: '初出茅庐', desc: '完成第一次孵化', emoji: '🐣', condition: () => state.drawCount >= 1 },
+      { id: 'draw-10', name: '新手饲养员', desc: '累计孵化10次', emoji: '🌱', condition: () => state.drawCount >= 10 },
+      { id: 'draw-50', name: '资深饲养员', desc: '累计孵化50次', emoji: '⭐', condition: () => state.drawCount >= 50 },
+      { id: 'draw-100', name: '孵化大师', desc: '累计孵化100次', emoji: '🔥', condition: () => state.drawCount >= 100 },
+      { id: 'collect-5', name: '初级收藏家', desc: '收集5只不同的鸡', emoji: '📖', condition: () => state.unlockedIds.size >= 5 },
+      { id: 'collect-10', name: '中级收藏家', desc: '收集10只不同的鸡', emoji: '📚', condition: () => state.unlockedIds.size >= 10 },
+      { id: 'collect-all', name: '图鉴完成', desc: '收集全部鸡', emoji: '👑', condition: () => state.unlockedIds.size >= chickenResults.length },
+      { id: 'first-hidden', name: '隐藏探索者', desc: '获得第一只隐藏款', emoji: '✨', condition: () => [...state.unlockedIds].some(id => chickenResults.find(c => c.id === id)?.category === 'hidden') },
+      { id: 'first-special', name: '特殊邂逅', desc: '获得第一只特殊款', emoji: '🌟', condition: () => [...state.unlockedIds].some(id => chickenResults.find(c => c.id === id)?.category === 'special') },
+      { id: 'lucky-streak', name: '幸运连击', desc: '幸运值达到100', emoji: '🍀', condition: () => state.luckValue >= 100 }
+    ];
+
+    const BASE_WEIGHTS = {
+      NORMAL: 47,
+      SPECIAL: 50,
+      HIDDEN: 25
+    };
+
+    const chickenResults = [
+      { id: "normal-chicken", name: "普通鸡", emoji: "🐔", description: "就是一只普普通通的家养鸡，生活乐无边。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "fighter-chicken", name: "战斗鸡", emoji: "🥊", description: "公鸡中的战斗机！噢耶！", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "fried-chicken", name: "肯德鸡", emoji: "🍗", description: "香喷喷，酥脆脆，大家都爱你（的肉体）。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "screaming-chicken", name: "尖叫鸡", emoji: "😱", description: "虽然很吵，但是能给别人带来快乐（或痛苦）。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "weak-chicken", name: "弱鸡", emoji: "🍃", description: "身体虽然孱弱，但头脑...可能也不太行。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "drowned-chicken", name: "落汤鸡", emoji: "💦", description: "最近水逆，出门记得带伞。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "iron-rooster", name: "铁公鸡", emoji: "🪙", description: "一毛不拔！勤俭持家的极致。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "mahjong-chicken", name: "幺鸡", emoji: "🀐", description: "麻将桌上的常客，容易被杠。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "spicy-chicken", name: "辣子鸡", emoji: "🌶️", description: "性格火辣，让人欲罢不能。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "repeater-chicken", name: "复读鸡", emoji: "🔁", description: "人类的本质是复读机，鸡也一样。鸡也一样。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "kung-pao-chicken", name: "宫保鸡丁", emoji: "🥜", description: "你的灵魂里充满了花生米的香气。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "crane-chicken", name: "鹤立鸡群", emoji: "🦢", description: "由于太过优秀，在鸡群中显得格格不入。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "wooden-chicken", name: "呆若木鸡", emoji: "🪵", description: "泰山崩于前而色不变，其实是反应慢。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "little-chick", name: "小黄鸡", emoji: "🐥", description: "永远长不大的宝宝，可可爱爱。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "old-hen", name: "老母鸡", emoji: "🍲", description: "成熟稳重，适合炖汤（划掉）照顾人。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "call-chicken", name: "打鸣鸡", emoji: "⏰", description: "天生闹钟，早起达人，邻居的最爱。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "gym-chicken", name: "肌霸鸡", emoji: "💪", description: "甚至不吃蛋白粉就能练出胸肌。", baseWeight: BASE_WEIGHTS.NORMAL },
+      { id: "nugget", name: "麦乐鸡", emoji: "🥡", description: "虽然是合成的，但也要活得精彩！", baseWeight: BASE_WEIGHTS.NORMAL },
+      
+      { id: "phoenix", name: "凤凰", emoji: "🔥", description: "其实你是凤凰，只是暂时在鸡窝里卧底。", category: "hidden", baseWeight: BASE_WEIGHTS.HIDDEN },
+      { id: "strange-chicken", name: "只因", emoji: "🏀", description: "你会唱、跳、Rap和篮球吗？", category: "hidden", baseWeight: BASE_WEIGHTS.HIDDEN },
+      
+      { id: "human", name: "人类", emoji: "🧑", description: "经过精密检测，你竟然是个人类！是不是走错片场了？", category: "special", baseWeight: BASE_WEIGHTS.SPECIAL },
+      { id: "renji", name: "仁济", emoji: "🤖", description: "虽然名字好听，但其实是‘人机’的意思。你像人机一样呆呆的，眼神中透着清澈的愚蠢。", category: "special", baseWeight: BASE_WEIGHTS.SPECIAL }
+    ];
+
+    const state = {
+      isMuted: localStorage.getItem('isMuted') === 'true',
+      isHolding: false,
+      startTime: 0,
+      progressInterval: null,
+      unlockedIds: new Set(JSON.parse(localStorage.getItem('unlockedChickens') || '[]')),
+      drawCount: parseInt(localStorage.getItem('drawCount') || '0'),
+      hasCelebratedFullCollection: false,
+      pendingResult: null,
+      luckValue: parseInt(localStorage.getItem('luckValue') || CONFIG.INITIAL_LUCK),
+      unlockedAchievements: new Set(JSON.parse(localStorage.getItem('unlockedAchievements') || '[]')),
+      history: JSON.parse(localStorage.getItem('history') || '[]')
+    };
+
+    const dom = {
+      testArea: document.getElementById('test-area'),
+      resultArea: document.getElementById('result-area'),
+      resultCardInner: document.getElementById('result-card-inner'),
+      progressBar: document.getElementById('progress-bar'),
+      pressHint: document.getElementById('press-hint'),
+      instruction: document.getElementById('instruction'),
+      resultImage: document.getElementById('result-image'),
+      resultEmojiDisplay: document.getElementById('result-emoji-display'),
+      resultTitle: document.getElementById('result-title'),
+      resultDescription: document.getElementById('result-description'),
+      randomQuote: document.getElementById('random-quote'),
+      rareTag: document.getElementById('rare-tag'),
+      newBadgeContainer: document.getElementById('new-badge-container'),
+      btnCollection: document.getElementById('btn-collection'),
+      collectionBadge: document.getElementById('collection-badge'),
+      btnMute: document.getElementById('btn-mute'),
+      btnShare: document.getElementById('btn-share'),
+      btnCopy: document.getElementById('btn-copy'),
+      toast: document.getElementById('toast'),
+      toastMessage: document.getElementById('toast-message'),
+      collectionModal: document.getElementById('collection-modal'),
+      collectionContent: document.getElementById('collection-content'),
+      btnCloseCollection: document.getElementById('btn-close-collection'),
+      collectionGrid: document.getElementById('collection-grid'),
+      collectionCount: document.getElementById('collection-count'),
+      totalCount: document.getElementById('total-count'),
+      totalDraws: document.getElementById('total-draws'),
+      collectionDetailPanel: document.getElementById('collection-detail-panel'),
+      detailImg: document.getElementById('detail-img'),
+      detailEmoji: document.getElementById('detail-emoji'),
+      detailName: document.getElementById('detail-name'),
+      detailTag: document.getElementById('detail-tag'),
+      detailDesc: document.getElementById('detail-desc'),
+      eggSvg: document.querySelector('.egg-svg'),
+      eggBody: document.getElementById('egg-body'),
+      eggRays: document.getElementById('egg-rays'),
+      eggRaysInner: document.querySelector('.rays'),
+      cracks: [document.getElementById('crack-1'), document.getElementById('crack-2'), document.getElementById('crack-3')],
+      floatingBg: document.getElementById('floating-bg'),
+      luckValue: document.getElementById('luck-value'),
+      luckBar: document.getElementById('luck-bar'),
+      btnAchievement: document.getElementById('btn-achievement'),
+      achievementBadge: document.getElementById('achievement-badge'),
+      btnStats: document.getElementById('btn-stats'),
+      achievementModal: document.getElementById('achievement-modal'),
+      achievementContent: document.getElementById('achievement-content'),
+      btnCloseAchievement: document.getElementById('btn-close-achievement'),
+      achievementList: document.getElementById('achievement-list'),
+      achievementCount: document.getElementById('achievement-count'),
+      achievementTotal: document.getElementById('achievement-total'),
+      statsModal: document.getElementById('stats-modal'),
+      statsContent: document.getElementById('stats-content'),
+      btnCloseStats: document.getElementById('btn-close-stats'),
+      statsTotalDraws: document.getElementById('stats-total-draws'),
+      statsCollection: document.getElementById('stats-collection'),
+      statsLuck: document.getElementById('stats-luck'),
+      statsAchievements: document.getElementById('stats-achievements'),
+      statsNormal: document.getElementById('stats-normal'),
+      statsSpecial: document.getElementById('stats-special'),
+      statsHidden: document.getElementById('stats-hidden'),
+      historyList: document.getElementById('history-list')
+    };
+
+    const init = () => {
+      preloadImages();
+      updateCollectionStats();
+      updateLuckDisplay();
+      showRandomTip();
+      initFloatingBg();
+      
+      dom.btnMute.textContent = state.isMuted ? '🔇' : '🔊';
+      dom.achievementTotal.textContent = ACHIEVEMENTS.length;
+      
+      const lastResult = localStorage.getItem('currentResult');
+      if (lastResult) {
+        showResult(JSON.parse(lastResult), false, false);
+      }
+    };
+
+    const preloadImages = () => {
+      const cacheContainer = document.getElementById('preload-cache');
+      chickenResults.forEach(chicken => {
+        const img = new Image();
+        img.src = `image/${chicken.id}.png`;
+        img.style.display = 'none';
+        if (cacheContainer) {
+            cacheContainer.appendChild(img);
+        }
+      });
+    };
+
+    const initFloatingBg = () => {
+      const emojis = ['🥚', '🐣', '🐥', '🐓', '🐾', '🌾'];
+      const container = dom.floatingBg;
+      
+      for (let i = 0; i < 15; i++) {
+        const el = document.createElement('div');
+        el.className = 'float-item text-2xl absolute opacity-0 select-none';
+        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.left = `${Math.random() * 100}%`;
+        el.style.animationDelay = `${Math.random() * 10}s`;
+        el.style.animationDuration = `${10 + Math.random() * 10}s`; 
+        el.style.fontSize = `${1 + Math.random()}rem`;
+        container.appendChild(el);
+      }
+    };
+
+    let toastTimeout;
+    const showToast = (message) => {
+      if (toastTimeout) clearTimeout(toastTimeout);
+      dom.toastMessage.textContent = message;
+      dom.toast.classList.remove('opacity-0', 'translate-y-[-20px]');
+      dom.toast.classList.add('opacity-100', 'translate-y-0');
+      toastTimeout = setTimeout(() => {
+        dom.toast.classList.remove('opacity-100', 'translate-y-0');
+        dom.toast.classList.add('opacity-0', 'translate-y-[-20px]');
+      }, 3000);
+    };
+
+    const showRandomTip = () => {
+      const randomIndex = Math.floor(Math.random() * tips.length);
+      dom.instruction.textContent = tips[randomIndex];
+    };
+
+    const generateWeightedResult = () => {
+      const luckMultiplier = state.luckValue / 100;
+      
+      let totalWeight = 0;
+      const currentWeights = chickenResults.map(chicken => {
+        let weight = chicken.baseWeight;
+        if (chicken.category === 'special') {
+            weight += state.drawCount * CONFIG.LUCK_MULTIPLIER.SPECIAL * luckMultiplier;
+        } else if (chicken.category === 'hidden') {
+            weight += state.drawCount * CONFIG.LUCK_MULTIPLIER.HIDDEN * luckMultiplier;
+        }
+        totalWeight += weight;
+        return { ...chicken, finalWeight: weight };
+      });
+
+      let random = Math.random() * totalWeight;
+      
+      for (const chicken of currentWeights) {
+        if (random < chicken.finalWeight) {
+          return chicken;
+        }
+        random -= chicken.finalWeight;
+      }
+      return chickenResults[0];
+    };
+
+    const finishHatching = (result) => { 
+      playSound('crack');
+      dom.testArea.classList.add('hidden');
+      dom.resultArea.classList.remove('hidden');
+      
+      state.drawCount++;
+      localStorage.setItem('drawCount', state.drawCount);
+      localStorage.setItem('currentResult', JSON.stringify(result));
+      
+      addToHistory(result);
+      
+      updateLuck(result);
+      
+      let isNew = false;
+      if (!state.unlockedIds.has(result.id)) {
+        state.unlockedIds.add(result.id);
+        localStorage.setItem('unlockedChickens', JSON.stringify([...state.unlockedIds]));
+        updateCollectionStats();
+        dom.collectionBadge.classList.remove('hidden');
+        checkFullCollection();
+        isNew = true;
+      } else {
+        updateCollectionStats(); 
+      }
+      
+      checkAchievements();
+      
+      showResult(result, true, isNew);
+    };
+
+    const checkFullCollection = () => {
+        if (state.unlockedIds.size === chickenResults.length && !state.hasCelebratedFullCollection) {
+            state.hasCelebratedFullCollection = true;
+            setTimeout(() => {
+                showToast('🎉 恭喜！您已达成全收集成就！🎉');
+                playSound('complete');
+                var end = Date.now() + (5 * 1000);
+                (function frame() {
+                  confetti({ particleCount: 5, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#FFD700', '#FCD34D'] });
+                  confetti({ particleCount: 5, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#FFD700', '#FCD34D'] });
+                  if (Date.now() < end) requestAnimationFrame(frame);
+                }());
+            }, 1000);
+        }
+    };
+
+    const showResult = (result, playEffects = true, isNew = false) => {
+      dom.testArea.classList.add('hidden');
+      dom.resultArea.classList.remove('hidden');
+      
+      dom.resultTitle.textContent = result.name;
+      dom.resultDescription.textContent = result.description;
+      dom.randomQuote.textContent = "“ " + chickenQuotes[Math.floor(Math.random() * chickenQuotes.length)] + " ”";
+      
+      dom.resultCardInner.className = 'bg-yellow-50 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[20rem] border-4 border-yellow-100 transition-colors duration-500 relative w-full';
+      dom.resultTitle.className = 'text-2xl md:text-3xl font-bold text-gray-800 mb-2';
+      dom.rareTag.classList.add('hidden');
+      dom.newBadgeContainer.innerHTML = '';
+
+      if (isNew) {
+         const badge = document.createElement('div');
+         badge.className = 'new-badge';
+         badge.textContent = 'NEW! 新解锁';
+         dom.newBadgeContainer.appendChild(badge);
+      }
+      
+      if (result.category === 'hidden') {
+        dom.resultCardInner.classList.add('rare-bg', 'border-yellow-400');
+        dom.resultCardInner.classList.remove('bg-yellow-50', 'border-yellow-100');
+        dom.resultTitle.classList.add('text-red-600');
+        dom.rareTag.textContent = '✨ 隐藏款 ✨';
+        dom.rareTag.className = 'absolute top-3 right-3 px-3 py-1 bg-gradient-to-r from-yellow-400 to-red-500 text-white text-xs font-bold rounded-full shadow-sm z-10';
+        dom.rareTag.classList.remove('hidden');
+      } else if (result.category === 'special') {
+        dom.resultCardInner.classList.add('special-bg', 'border-purple-400');
+        dom.resultCardInner.classList.remove('bg-yellow-50', 'border-yellow-100');
+        dom.resultTitle.classList.add('text-purple-600');
+        dom.rareTag.textContent = '🌟 特殊款 🌟';
+        dom.rareTag.className = 'absolute top-3 right-3 px-3 py-1 bg-gradient-to-r from-purple-400 to-pink-500 text-white text-xs font-bold rounded-full shadow-sm z-10';
+        dom.rareTag.classList.remove('hidden');
+      }
+
+      const imagePath = `image/${result.id}.png`;
+      dom.resultImage.src = imagePath;
+      dom.resultImage.classList.remove('hidden');
+      dom.resultEmojiDisplay.classList.add('hidden');
+      
+      dom.resultImage.onerror = () => {
+        dom.resultImage.classList.add('hidden');
+        dom.resultEmojiDisplay.textContent = result.emoji;
+        dom.resultEmojiDisplay.classList.remove('hidden');
+      };
+
+      if (playEffects) {
+        playSound('complete');
+        const particleCount = result.category ? 150 : 50;
+        confetti({
+          particleCount: particleCount,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: result.category === 'hidden' ? ['#FFD700', '#FFA500'] : (result.category === 'special' ? ['#A855F7', '#EC4899'] : undefined)
+        });
+      }
+    };
+
+    const updateCollectionStats = () => {
+      let visibleTotal = 0;
+      chickenResults.forEach(c => {
+        if (c.category !== 'hidden' || state.unlockedIds.has(c.id)) {
+          visibleTotal++;
+        }
+      });
+      dom.collectionCount.textContent = state.unlockedIds.size;
+      dom.totalCount.textContent = visibleTotal;
+      dom.totalDraws.textContent = state.drawCount;
+    };
+
+    
+    const updateLuckDisplay = () => {
+      dom.luckValue.textContent = state.luckValue;
+      dom.luckBar.style.width = `${state.luckValue}%`;
+    };
+
+    const updateLuck = (result) => {
+      let change = 0;
+      if (result.category === 'hidden') {
+        change = -10;
+      } else if (result.category === 'special') {
+        change = -5;
+      } else {
+        change = Math.random() > 0.5 ? 1 : -1;
+      }
+      
+      state.luckValue = Math.max(0, Math.min(CONFIG.MAX_LUCK, state.luckValue + change));
+      localStorage.setItem('luckValue', state.luckValue);
+      updateLuckDisplay();
+      
+      if (change > 0) {
+        showToast(`🍀 幸运值 +${change}`);
+      } else if (change < 0) {
+        showToast(`💨 幸运值 ${change}`);
+      }
+    };
+
+    
+    const checkAchievements = () => {
+      let newUnlocked = [];
+      ACHIEVEMENTS.forEach(achievement => {
+        if (!state.unlockedAchievements.has(achievement.id) && achievement.condition()) {
+          state.unlockedAchievements.add(achievement.id);
+          newUnlocked.push(achievement);
+        }
+      });
+      
+      if (newUnlocked.length > 0) {
+        localStorage.setItem('unlockedAchievements', JSON.stringify([...state.unlockedAchievements]));
+        dom.achievementBadge.classList.remove('hidden');
+        
+        setTimeout(() => {
+          newUnlocked.forEach((ach, index) => {
+            setTimeout(() => {
+              showToast(`🏆 解锁成就: ${ach.emoji} ${ach.name}`);
+              playSound('complete');
+            }, index * 2000);
+          });
+        }, 1000);
+      }
+    };
+
+    const renderAchievements = () => {
+      dom.achievementList.innerHTML = '';
+      ACHIEVEMENTS.forEach(achievement => {
+        const isUnlocked = state.unlockedAchievements.has(achievement.id);
+        const el = document.createElement('div');
+        el.className = `p-4 rounded-xl border-2 transition-all ${
+          isUnlocked 
+            ? 'bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200' 
+            : 'bg-gray-50 border-gray-200 opacity-60'
+        }`;
+        el.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="text-3xl">${isUnlocked ? achievement.emoji : '🔒'}</div>
+            <div class="flex-1">
+              <h3 class="font-bold text-gray-800 ${isUnlocked ? '' : 'text-gray-400'}">${achievement.name}</h3>
+              <p class="text-sm text-gray-600 ${isUnlocked ? '' : 'text-gray-400'}">${achievement.desc}</p>
+            </div>
+            ${isUnlocked ? '<div class="text-green-500 text-xl">✔</div>' : ''}
+          </div>
+        `;
+        dom.achievementList.appendChild(el);
+      });
+      dom.achievementCount.textContent = state.unlockedAchievements.size;
+    };
+
+    const toggleAchievement = (show) => {
+      if (show) {
+        renderAchievements();
+        dom.achievementModal.classList.remove('hidden');
+        dom.achievementBadge.classList.add('hidden');
+        setTimeout(() => {
+          dom.achievementContent.classList.remove('opacity-0', 'scale-95');
+          dom.achievementContent.classList.add('opacity-100', 'scale-100');
+        }, 10);
+      } else {
+        dom.achievementContent.classList.remove('opacity-100', 'scale-100');
+        dom.achievementContent.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+          dom.achievementModal.classList.add('hidden');
+        }, 300);
+      }
+    };
+
+    
+    const addToHistory = (result) => {
+      const historyItem = {
+        ...result,
+        timestamp: Date.now()
+      };
+      state.history.unshift(historyItem);
+      if (state.history.length > CONFIG.HISTORY_MAX_LENGTH) {
+        state.history = state.history.slice(0, CONFIG.HISTORY_MAX_LENGTH);
+      }
+      localStorage.setItem('history', JSON.stringify(state.history));
+    };
+
+    const renderHistory = () => {
+      dom.historyList.innerHTML = '';
+      if (state.history.length === 0) {
+        dom.historyList.innerHTML = '<p class="text-gray-400 text-center py-4">还没有孵化记录</p>';
+        return;
+      }
+      state.history.forEach(item => {
+        const el = document.createElement('div');
+        const date = new Date(item.timestamp);
+        const timeStr = `${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2,'0')}`;
+        el.className = 'flex items-center gap-2 p-2 bg-white rounded-lg';
+        el.innerHTML = `
+          <span class="text-2xl">${item.emoji}</span>
+          <div class="flex-1">
+            <div class="font-bold text-sm">${item.name}</div>
+            <div class="text-xs text-gray-400">${timeStr}</div>
+          </div>
+        `;
+        dom.historyList.appendChild(el);
+      });
+    };
+
+    const renderStats = () => {
+      dom.statsTotalDraws.textContent = state.drawCount;
+      dom.statsCollection.textContent = `${state.unlockedIds.size}/${chickenResults.length}`;
+      dom.statsLuck.textContent = state.luckValue;
+      dom.statsAchievements.textContent = state.unlockedAchievements.size;
+      
+      let normalCount = 0, specialCount = 0, hiddenCount = 0;
+      state.history.forEach(item => {
+        if (item.category === 'hidden') hiddenCount++;
+        else if (item.category === 'special') specialCount++;
+        else normalCount++;
+      });
+      
+      dom.statsNormal.textContent = normalCount;
+      dom.statsSpecial.textContent = specialCount;
+      dom.statsHidden.textContent = hiddenCount;
+      
+      renderHistory();
+    };
+
+    const toggleStats = (show) => {
+      if (show) {
+        renderStats();
+        dom.statsModal.classList.remove('hidden');
+        setTimeout(() => {
+          dom.statsContent.classList.remove('opacity-0', 'scale-95');
+          dom.statsContent.classList.add('opacity-100', 'scale-100');
+        }, 10);
+      } else {
+        dom.statsContent.classList.remove('opacity-100', 'scale-100');
+        dom.statsContent.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+          dom.statsModal.classList.add('hidden');
+        }, 300);
+      }
+    };
+
+
+    const renderCollection = () => {
+      dom.collectionGrid.innerHTML = '';
+      dom.collectionDetailPanel.classList.add('hidden');
+      
+      chickenResults.forEach(chicken => {
+        const isUnlocked = state.unlockedIds.has(chicken.id);
+        const isHidden = chicken.category === 'hidden';
+        if (isHidden && !isUnlocked) return;
+
+        const el = document.createElement('div');
+        let classes = 'collection-item';
+        if (isUnlocked) {
+          if (chicken.category === 'hidden') classes += ' unlocked-hidden';
+          else if (chicken.category === 'special') classes += ' unlocked-special';
+          else classes += ' unlocked-normal';
+        } else {
+          classes += ' locked';
+        }
+        el.className = classes;
+        
+        if (isUnlocked) {
+            el.innerHTML = `<img src="image/${chicken.id}.png" class="w-full h-full object-contain pointer-events-none" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><span class="hidden">${chicken.emoji}</span>`;
+            el.addEventListener('click', () => showCollectionDetail(chicken));
+        } else {
+            el.textContent = '❓';
+        }
+        dom.collectionGrid.appendChild(el);
+      });
+    };
+
+    const showCollectionDetail = (chicken) => {
+        document.querySelectorAll('.collection-item').forEach(el => el.classList.remove('selected'));
+        const imagePath = `image/${chicken.id}.png`;
+        dom.detailImg.src = imagePath;
+        dom.detailImg.classList.remove('hidden');
+        dom.detailEmoji.classList.add('hidden');
+        dom.detailImg.onerror = () => {
+            dom.detailImg.classList.add('hidden');
+            dom.detailEmoji.textContent = chicken.emoji;
+            dom.detailEmoji.classList.remove('hidden');
+        };
+
+        dom.detailName.textContent = chicken.name;
+        dom.detailDesc.textContent = chicken.description;
+        
+        if (chicken.category === 'hidden') {
+            dom.detailTag.textContent = '隐藏款';
+            dom.detailTag.className = 'text-xs px-2 py-0.5 rounded-full text-white bg-yellow-500';
+            dom.detailTag.classList.remove('hidden');
+        } else if (chicken.category === 'special') {
+            dom.detailTag.textContent = '特殊款';
+            dom.detailTag.className = 'text-xs px-2 py-0.5 rounded-full text-white bg-purple-500';
+            dom.detailTag.classList.remove('hidden');
+        } else {
+            dom.detailTag.classList.add('hidden');
+        }
+        dom.collectionDetailPanel.classList.remove('hidden');
+    };
+
+    const toggleCollection = (show) => {
+      if (show) {
+        renderCollection();
+        dom.collectionModal.classList.remove('hidden');
+        dom.collectionBadge.classList.add('hidden');
+        setTimeout(() => {
+            dom.collectionContent.classList.remove('opacity-0', 'scale-95');
+            dom.collectionContent.classList.add('opacity-100', 'scale-100');
+        }, 10);
+      } else {
+        dom.collectionContent.classList.remove('opacity-100', 'scale-100');
+        dom.collectionContent.classList.add('opacity-0', 'scale-95');
+        setTimeout(() => {
+            dom.collectionModal.classList.add('hidden');
+        }, 300);
+      }
+    };
+
+
+    const startHatching = (e) => {
+      if (e.cancelable) e.preventDefault();
+      if (localStorage.getItem('currentResult')) return;
+      
+      state.pendingResult = generateWeightedResult();
+      
+      state.isHolding = true;
+      state.startTime = Date.now();
+      
+      if (state.pendingResult.category === 'hidden') {
+         dom.eggBody.style.fill = '#FCD34D'; // Goldish
+         dom.eggBody.style.stroke = '#B45309';
+      } else if (state.pendingResult.category === 'special') {
+         dom.eggBody.style.fill = '#E9D5FF'; // Purpleish
+         dom.eggBody.style.stroke = '#7E22CE';
+      } else {
+         dom.eggBody.style.fill = '#FEF3C7'; // Default
+         dom.eggBody.style.stroke = '#F59E0B';
+      }
+
+      let rayColor = 'transparent';
+      if (state.pendingResult.category === 'hidden') rayColor = '#FFD700'; 
+      else if (state.pendingResult.category === 'special') rayColor = '#A855F7'; 
+      
+      if (rayColor !== 'transparent') {
+        dom.eggRaysInner.style.setProperty('--ray-color', rayColor);
+      }
+
+      dom.pressHint.classList.add('hidden');
+      dom.instruction.textContent = "正在孵化中...加油！";
+      dom.eggSvg.classList.add('animate-egg-shake');
+      dom.testArea.querySelector('.progress-container').classList.add('charging');
+      
+      vibrate(50);
+
+      state.progressInterval = setInterval(() => {
+        if (!state.isHolding) return;
+        
+        const elapsedTime = Date.now() - state.startTime;
+        const progress = Math.min(elapsedTime / 2500, 1);
+        dom.progressBar.style.width = `${progress * 100}%`;
+        
+        if (progress > 0.3) {
+            dom.cracks[0].style.opacity = 1;
+            updateCrackGlow(dom.cracks[0]);
+        }
+        if (progress > 0.6) {
+            dom.cracks[1].style.opacity = 1;
+            updateCrackGlow(dom.cracks[1]);
+        }
+        if (progress > 0.9) {
+            dom.cracks[2].style.opacity = 1;
+            updateCrackGlow(dom.cracks[2]);
+        }
+        
+        if (state.pendingResult.category && progress > 0.2) {
+            dom.eggRays.style.opacity = progress * 0.8;
+        }
+        
+        if (progress > 0.8 && Math.random() > 0.7) vibrate(20);
+
+        if (progress >= 1) {
+          stopHatching(true);
+          finishHatching(state.pendingResult);
+        }
+      }, 30);
+    };
+
+    const updateCrackGlow = (crackEl) => {
+        if (!state.pendingResult) return;
+        if (state.pendingResult.category === 'hidden') {
+            crackEl.classList.add('crack-glow-gold');
+        } else if (state.pendingResult.category === 'special') {
+            crackEl.classList.add('crack-glow-purple');
+        }
+    };
+
+    const stopHatching = (isFinishing = false) => {
+      state.isHolding = false;
+      clearInterval(state.progressInterval);
+      dom.eggSvg.classList.remove('animate-egg-shake');
+      dom.testArea.querySelector('.progress-container').classList.remove('charging');
+      
+      if (!isFinishing) {
+          dom.eggRays.style.opacity = 0;
+          dom.cracks.forEach(c => {
+              c.style.opacity = 0;
+              c.classList.remove('crack-glow-gold', 'crack-glow-purple');
+          });
+          dom.eggBody.style.fill = '#FEF3C7';
+          dom.eggBody.style.stroke = '#F59E0B';
+      }
+
+      if (!localStorage.getItem('currentResult') && !isFinishing) {
+        dom.progressBar.style.width = '0%';
+        dom.pressHint.classList.remove('hidden');
+        showRandomTip();
+        state.pendingResult = null; 
+      }
+    };
+
+    const resetTest = () => {
+      localStorage.removeItem('currentResult');
+      dom.resultArea.classList.add('hidden');
+      dom.testArea.classList.remove('hidden');
+      dom.eggRays.style.opacity = 0;
+      dom.cracks.forEach(c => {
+          c.style.opacity = 0;
+          c.classList.remove('crack-glow-gold', 'crack-glow-purple');
+      });
+      dom.eggBody.style.fill = '#FEF3C7';
+      dom.eggBody.style.stroke = '#F59E0B';
+      stopHatching();
+    };
+
+    const vibrate = (ms) => {
+      if (navigator.vibrate) navigator.vibrate(ms);
+    };
+
+    const playSound = (type) => {
+      if (state.isMuted) return;
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioContext();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        const now = ctx.currentTime;
+        if (type === 'crack') {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(150, now);
+          osc.frequency.exponentialRampToValueAtTime(40, now + 0.1);
+          gain.gain.setValueAtTime(0.5, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+          osc.start(now);
+          osc.stop(now + 0.1);
+        } else if (type === 'complete') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, now); 
+          osc.frequency.linearRampToValueAtTime(659.25, now + 0.1); 
+          osc.frequency.linearRampToValueAtTime(783.99, now + 0.2); 
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.linearRampToValueAtTime(0, now + 0.5);
+          osc.start(now);
+          osc.stop(now + 0.5);
+        }
+      } catch (e) {}
+    };
+
+    const generatePoster = () => {
+      html2canvas(document.getElementById('capture-target'), {
+        backgroundColor: null,
+        scale: 2,
+        useCORS: true 
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `我是${dom.resultTitle.textContent}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+        showToast('📸 海报已生成，快去相册看看！');
+      }).catch(err => {
+        console.error(err);
+        showToast('❌ 生成海报失败，请尝试截图~');
+      });
+    };
+
+    const copyResult = () => {
+      const url = window.location.href;
+      const text = `我在《测测你是什么鸡》中孵化出了【${dom.resultTitle.textContent}】！\n${dom.resultDescription.textContent}\n你也来试试吧！👉 ${url}`;
+      const onSuccess = () => showToast('🔗 结果已复制，快去分享吧！');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(onSuccess);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        onSuccess();
+      }
+    };
+
+    const pc = document.querySelector('.progress-container');
+    pc.addEventListener('mousedown', startHatching);
+    pc.addEventListener('touchstart', startHatching, { passive: false });
+    document.addEventListener('mouseup', () => stopHatching(false));
+    document.addEventListener('touchend', () => stopHatching(false));
+    document.addEventListener('touchcancel', () => stopHatching(false));
+
+    document.getElementById('retest-button').addEventListener('click', resetTest);
+    dom.btnShare.addEventListener('click', generatePoster);
+    dom.btnCopy.addEventListener('click', copyResult);
+    dom.btnMute.addEventListener('click', () => {
+      state.isMuted = !state.isMuted;
+      dom.btnMute.textContent = state.isMuted ? '🔇' : '🔊';
+      localStorage.setItem('isMuted', state.isMuted);
+    });
+    dom.btnCollection.addEventListener('click', () => toggleCollection(true));
+    dom.btnCloseCollection.addEventListener('click', () => toggleCollection(false));
+    dom.collectionModal.addEventListener('click', (e) => {
+        if(e.target === dom.collectionModal) toggleCollection(false);
+    });
+    dom.btnAchievement.addEventListener('click', () => toggleAchievement(true));
+    dom.btnCloseAchievement.addEventListener('click', () => toggleAchievement(false));
+    dom.achievementModal.addEventListener('click', (e) => {
+        if(e.target === dom.achievementModal) toggleAchievement(false);
+    });
+    dom.btnStats.addEventListener('click', () => toggleStats(true));
+    dom.btnCloseStats.addEventListener('click', () => toggleStats(false));
+    dom.statsModal.addEventListener('click', (e) => {
+        if(e.target === dom.statsModal) toggleStats(false);
+    });
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('selectstart', e => e.preventDefault());
+
+    init();
+  </script>
+</body>
+</html>
